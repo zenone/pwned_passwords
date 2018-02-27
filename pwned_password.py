@@ -29,7 +29,7 @@ def hash_password(password):
     :return dict: Return a python dict with the password hash and slices.
     '''
     sha_1 = hashlib.sha1()
-    sha_1.update(password)
+    sha_1.update(password.encode('utf-8'))
     sha1_hexdigest = sha_1.hexdigest()
     sha1_prefix = sha1_hexdigest[0:5]
     sha1_suffix = sha1_hexdigest[5:]
@@ -53,7 +53,7 @@ def check_hash(hash_dict):
     count = 0
     status = False
     if resp.status_code == 200:
-        for line in resp.content.split('\n'):
+        for line in resp.text.split('\n'):
             if hash_dict['sha1_suffix'].lower() in line.lower():
                 status = True
                 count = int(line.split(':')[1])
@@ -65,7 +65,6 @@ def check_hash(hash_dict):
         logging.debug('error code {0}'.format(resp.status_code))
         print('[!] Error checking hash. Code: {0}'.format(resp.status_code))
         sys.exit(1)
-
     return {'status': status, 'count': count}
 
 
