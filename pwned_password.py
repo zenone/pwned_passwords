@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # coding = utf-8
 #
+# Check to see if a password shows up on Troy Hunt's
+# V2 update to Pwned Passwords, and if so, how many
+# times.
+#
 # Todo: add exception handling
 
 
